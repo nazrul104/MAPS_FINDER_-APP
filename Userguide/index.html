@@ -1,0 +1,446 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Maps Finder App V.2</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	.style1 {font-size: 12px}
+    </style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Maps Finder App &rdquo; Documentation by &ldquo;Template Author&rdquo; v1.0</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Maps Finder App V.2 &rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 08/26/2014<br>
+					By: Rizal Saleh<br>
+			  Email: <a href="mailto:rizal.saleh1@gmail.com">rizal.saleh1@gmail.com</a>				  </strong>			  </p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my app. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://themeforest.net/user/rizals">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+        <center><img src="assets/images/Item-Preview.jpg" width="590" height="300" />
+        </center>
+		<br>
+		<hr>
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#overview">Overview</a></li>
+			<li><a href="#installation">Installation</a></li>
+			<li><a href="#databaseStructure">Database Structure </a></li>
+			<li><a href="#htmlStructure">HTML Structure</a></li>
+			<li><a href="#phpStructure">PHP Structure</a></li>
+			<li><a href="#cssStructure">CSS Files and Structure</a></li>
+			<li><a href="#javascript">JavaScript</a></li>
+			<li><a href="#Platform">Platform Guides</a></li>
+			<li><a href="#credits">Sources and Credits</a></li>
+		</ol>
+		
+		<hr>
+
+        <h3 id="overview"><strong>A) Overview </strong> - <a href="#toc">top</a></h3>
+        <p>Maps Finder App is a navigation tool designed for helping  people when travelling to different city for displays places near to user's.  This app is perfect for those of you who want to develop maps applications  based on mobile phone.</p>
+        <p>Before we start, lets take a look on the folder structure of the app. All app files are placed in the <u><strong>MAPS_FINDER_ APP</strong></u> folder. The <u><strong>MAPS_FINDER_ APP</strong></u> folder consists of 4 more folders for diferent types of app assets:</p>
+         <br />
+        <ol class="alpha">
+        	<li>Admin  - containing all admin files, for administration data application.</li>
+            <li>Application - containing all app files, HTML, the theme specific CSS and JS files.</li>
+            <li>Database - Database application and sample data.</li>
+	    </ol>
+        
+        <img src="assets/images/file.png"/><br/>
+
+		<hr>
+		
+   <h3 id="installation"><strong>B) Installation </strong> - <a href="#toc">top</a></h3>
+   <p><strong>	1. Server Requirements</strong> - <a href="#toc">top</a></p>
+        <ul type="disc" class="alpha">
+        	<li><a href="http://www.php.net/">PHP</a> version 5.1.6 or newer.</li>
+        	<li>A Database is required for most web application programming. Current supported databases are MySQL (4.1+), MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.</li>
+       	</ul>
+        
+        <p><strong>2. Upload Files </strong> - <a href="#toc">top</a></p>
+        <ul type="disc" class="alpha">
+          <li>Extract the main zip file, and then upload the application folder to your server for front end, if you want to make in the form of the native application using phonegap framework you can follow these <a href="#Platform">steps</a>.</li>
+          <li>Extract the main zip file, and then upload the admin folder to your server for back end.</li>
+        </ul>
+        <p><strong>3. Configuration Files </strong> - <a href="#toc">top</a></p>
+        <p><strong>a). Front End</strong></p>
+        <p>Open maps.js file from folder js and edit these values :</p>
+        <p><img src="assets/images/url_service.png"/></p>
+        <p>Change this with your url path of this admin.</p>
+        <p><strong>b). Back End</strong></p>
+        <p>Open database.php file from folder application/config and edit these values :</p>
+        <p><img src="assets/images/db_setting.png"/></p>
+        <p>Change this with your database settings (host, user, password, database name, database driver).</p>
+        <p><strong>4. Database Setup </strong> - <a href="#toc">top</a></p>
+        <ul type="disc" class="alpha">
+          <li>Create a database in mysql, I suggest using phpMyAdmin.</li>
+          <li>In your phpMyAdmin, type your database name in the Create new database field, and click Create.</li>
+          <li>After database created, click on the Import menu, browse install directory, select database/maps.sql (if you want to install database + sample data) .</li>
+          <li>Click Go to import the sql file.</li>
+          <li>Your database should be installed now.</li>
+        </ul>
+        <hr>
+        <h3 id="databaseStructure"><strong>C) Database Structure</strong> - <a href="#toc">top</a></h3>
+        <p>The database has 4 tables: category, markers, images and user.</p>
+        <p><strong>1). Category </strong></p>
+        <ul>
+          <li>category_id</li>
+          <li>category_name</li>
+          <li>category_icon</li>
+          <li>category_marker</li>
+          <li> category_desc</li>
+        </ul>
+        <p><strong>2). Markers </strong></p>
+        <ul>
+		  <li>markers_id</li>
+          <li>markers_category_id</li>
+          <li>markers_name</li>
+          <li>markers_logo</li>
+          <li>markers_phone</li>
+          <li>markers_address</li>
+          <li>markers_lat</li>
+          <li>markers_lng</li>
+          <li>markers_url</li>
+          <li>markers_desc</li>
+        </ul>
+        <p><strong>3). Images </strong></p>
+        <ul>
+		  <li>images_id</li>
+          <li>images_markers_id</li>
+          <li>images_name</li>
+          <li>images_url</li>
+          <li>images_desc</li>
+          <li>images_update</li>
+        </ul>
+        <p><strong>4). User</strong></p>
+        <ul>
+          <li>user_id</li>
+          <li>user_name</li>
+          <li>user_password</li>
+          <li>user_update</li>
+        </ul>
+        <hr>
+        <h3 id="htmlStructure"><strong>D) HTML Structure</strong> - <a href="#toc">top</a></h3>
+		<p><strong>a). Front End</strong></p>
+		<p>On this application composed only of a single HTML document contain multiple &quot;pages&quot; that are loaded together by stacking multiple divs with a data-role of &quot;page&quot;. Each &quot;page&quot; block have unique id (id=&quot;foo&quot;) that will be used to link internally between &quot;pages&quot; (href=&quot;#foo&quot;). When a link is clicked, the framework will look for an internal &quot;page&quot; with the id and transition it into view.</p>
+		<p>Here is an list of internal pages that exist in the index.html file :</p>
+		<ol>
+		  <li>Main</li>
+		  <li>Sidebar Left Menu</li>
+		  <li>Sidebar Right Menu</li>
+		  <li>Page Home</li>
+	      <li>Page Location List </li>
+	      <li>Page Nearby</li>
+	      <li>Page Save Location</li>
+	      <li>Page Add Save Location</li>
+	      <li>Page Detail Save Location</li>
+	      <li>Page Location Map</li>
+	      <li>Page Detail Location </li>
+	      <li>Page Location Route </li>
+      </ol>
+		
+	    <p><strong>b). Back End</strong></p>
+	    <p>Admin pages are built using the CodeIgniter framework with ajax technology to process login, load the page and processing the form.</p>
+	    <p>Here is an list of pages in admin  :</p>
+	    <ol>
+          <li>Login</li>
+	      <li>Page Home </li>
+	      <li>Page Add Category </li>
+	      <li>Page Add Location List </li>
+	      <li>Page Add Location Images </li>
+	      <li>Page Setting </li>
+      </ol>
+	    <hr>
+	    <h4><strong>A). Front End</strong></h4>
+	    <p><strong>1.1 Main</strong> - <a href="#toc">top</a></p>
+	    <p> You can see the common markup and data structures main as follows : </p>
+		<img src="assets/images/main.png"/>
+		<br><br>
+		<p>if you want to add a new page you can insert it into the div (class=&quot;content&quot;).</p>
+		<hr>	
+		
+		<p><strong>1.2 Sidebar Left Menu</strong> - <a href="#toc">top</a></p> 
+		<p>Slidebar left menu  to display a list of all button link menu app.</p>
+		<img src="assets/images/sidebar_left_menu.png"/> <br>
+		<br>
+        <p>- The structure of the content is as follows :</p>
+        <p><img src="assets/images/html_sidebar_left_menu.png"/>        </p>
+        <p>If you have add active style into menu add class &quot;active&quot; to (&lt;li class=&quot;active&quot;&gt;) or add icon insert tag (span=&quot;icon-class-name&quot;) inside tag &lt;li&gt;. </p>
+        <p>- The following script in files js/app.js find lines 4-40 this is used to response slidebar left menu for action : </p>
+        <img src="assets/images/js_sidebar_left_menu.png"/>
+        <p>&nbsp;</p>
+		<hr>
+
+		<p><strong>1.3 Sidebar Right Menu</strong> - <a href="#toc">top</a></p> 
+		<p>Slidebar right menu  to display a list of all button setting menu app.</p>
+		<p><img src="assets/images/sidebar_right_menu.png"/> <br>
+	    </p>
+		<p>- The structure of the content is as follows find lines 72-125 :</p>
+		<p><img src="assets/images/html_sidebar_right_menu.png"/></p>
+		<p>- The following script in files js/app.js find lines 58-72 this is used to save user setting in local storage : </p>
+        <img src="assets/images/js_sidebar_right_menu.png"/>
+        <hr>		
+
+		<p><strong>1.4 Page Home</strong> - <a href="#toc">top</a></p>
+		<p>Page to display the dashboard application.</p>
+		<img src="assets/images/page_home.png"/><br>
+        <p>- The structure of the content is as follows :</p>
+        <img src="assets/images/html_page_home.png"/>
+        <p>&nbsp;</p>
+        <p>If you have  add icon insert tag div(data-icon="icon name")  inside tag &lt;a&gt;, for list icon you can see it in fonts/icomoon/list-icon.html.</p>
+        <hr>
+        <p><strong>1.5 Page Location List </strong> - <a href="#toc">top</a></p>
+		<p>Page to display the category of the page list location.</p>
+		<img src="assets/images/page_location_list.png"/><br>
+        <p>- The structure of the content is as follows :</p>
+        <img src="assets/images/html_page_location_list.png"/>
+        <p>&nbsp;</p>
+        <p>- The following script in files js/maps.js find lines 282-292 this is used to load data from database : </p>
+        <img src="assets/images/js_page_location_list.png"/>
+<hr>
+	
+		<p><strong>1.6 Page Nearby </strong> - <a href="#toc">top</a></p> 
+		<p>page to display the nearest location that was around the user .</p>
+		<img src="assets/images/page_nearby.png"/> <br>
+		<br>
+        <p>- The structure of the page is as follows :</p>
+        <p><img src="assets/images/html_page_nearby.png"/>        </p>
+        <p>- The following script in files js/maps.js find lines 334-347 this is used to load data from database : </p>
+        <img src="assets/images/js_page_nearby.png"/>
+        <hr>
+	    <p><strong>1.7 Page Save  Location </strong>- <a href="#toc">top</a></p>
+	    <p>Page to display the data from the storage location of the user.</p>
+	    <p><img src="assets/images/page_save_my_location.png"/> <br>
+          <strong>- The structure of the page is as follows :  </strong></p>
+	    <p><img src="assets/images/html_page_save_my_location.png"/> </p>
+        <p>- The following script in files js/maps.js find lines 378-390 this is used to load data local storage : </p>
+        <img src="assets/images/js_page_save_my_location.png"/>
+        <hr>
+        <p><strong>1.8 Page Save Location </strong>- <a href="#toc">top</a></p>
+        <p>Pages to store data where the location and a description of the current user .</p>
+      <p><img src="assets/images/page_add_my_location.png"/> <br>
+        - The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_page_add_my_location.png"/> </p>
+        <p>- The following script in files js/maps.js find lines 361-375 this is used to save local storage : </p>
+        <img src="assets/images/js_page_add_my_location.png"/>
+        <hr>
+        <p><strong>1.9 Page Detail Save Location </strong>- <a href="#toc">top</a></p>
+        <p>Pages to store data where the location and a description of the current user .</p>
+      <p><img src="assets/images/page_detail_save_location.png"/> <br>
+        - The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_page_detail_save_location.png"/> </p>
+        <p>- The following script in files js/maps.js find lines 361-375 this is used to save local storage : </p>
+        <img src="assets/images/js_page_add_my_location.png"/>
+        <hr>
+        <p><strong>1.10 Page Location Map </strong>- <a href="#toc">top</a></p>
+        <p>Page to display the location data into maps .</p>
+        <p><img src="assets/images/page_location_map.png"/> <br>
+      </p>
+        <p>- The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_page_location_map.png"/> </p>
+        <p>- The following script in files js/maps.js find lines 91-182 this is used load  data map : </p>
+        <img src="assets/images/js_page_location_map.png"/>
+        <hr>
+        <p><strong>1.11 Page Detail Location </strong>- <a href="#toc">top</a></p>
+        <p>Page to display the detail location information.</p>
+        <p><img src="assets/images/page_detail_location.png"/> <br>
+        </p>
+        <p>- The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_page_detail_location.png"/> </p>
+        <p>- The following script in files js/maps.js find lines 412-442 this is used load  detail location information : </p>
+      <p><img src="assets/images/js_page_detail_location.png"/></p>
+        <hr>
+        <p><strong>1.12 Page Location Route </strong>- <a href="#toc">top</a></p>
+        <p>Page to display the location route .</p>
+        <p><img src="assets/images/page_route.png"/> <br>
+        </p>
+        <p>- The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_page_route.png"/> </p>
+        <p>- The following script in files js/maps.js find lines 105-116 into function init() this is used show   map route : </p>
+        <p><img src="assets/images/js_page_route.png"/>        </p>
+        <p>&nbsp;</p>
+        <hr>
+        <h4><strong>2). Back End</strong></h4>
+        <p><strong>2.1 Login </strong>- <a href="#toc">top</a></p>
+        <p>Page to login into the admin page, source file (aplication/views/login.php).</p>
+        <p><img src="assets/images/admin_login.png"/> <br>
+        </p>
+        <p>- The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_admin_login.png"/> </p>
+        <p>- The following script  find lines 42-67 this is used to do the processing login sistem : </p>
+        <p><img src="assets/images/js_admin_login.png"/></p>
+        <hr>
+        <p><strong>2.2 Page Home </strong>- <a href="#toc">top</a></p>
+        <p>Page to display the location of all the data that has been input into the database, source file (aplication/views/home.php).</p>
+        <p><img src="assets/images/admin_home.png" width="783" height="393"/></p>
+        <p>- The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_admin_home.png"/> </p>
+        <hr>
+        <p><strong>2.3 Page Add Category </strong>- <a href="#toc">top</a></p>
+        <p>Page to login into the admin page, source file (aplication/views/category.php).</p>
+        <p><img src="assets/images/admin_category.png"/></p>
+        <p>- The structure of the page is as follows : </p>
+        <p><img src="assets/images/html_admin_category.png"/> </p>
+        <p>- The following script  find lines 208-226 this is use to perform the data request to database : </p>
+        <p><img src="assets/images/js_admin_category.png"/></p>
+        <hr>
+        <h3 id="phpStructure"><strong>E) PHP Structure</strong> - <a href="#toc">top</a></h3>
+        <p>On the admin page application using CodeIgniter framework, in which to apply the concept of MVC.</p>
+        <p><strong>1. Datatables </strong>- <a href="#toc">top</a></p>
+        <p>The application is equipped with a libraries datatables where you just need to follow the example of its use as follows : </p>
+        <img src="assets/images/select_datatables.png"/><br>
+        <p>&nbsp;</p>
+        <p>Sample use in category, source file (aplication/controllers/category.php) : </p>
+        <p><img src="assets/images/sample_datatables.png"/>        </p>
+        <p><strong>2. Insert Data </strong>- <a href="#toc">top</a></p>
+        <p>Sample use insert data in category, source file (aplication/controllers/category.php) : </p>
+        <p><strong>a. Controllers </strong><a href="#toc"></a></p>
+        <p><img src="assets/images/controller_insert.png"/><br>
+        </p>
+        <p><strong>a. Models </strong><a href="#toc"></a></p>
+        <p><img src="assets/images/models_insert.png"/></p>
+        <p><strong>3. Remove Data </strong>- <a href="#toc">top</a></p>
+        <p>Sample use remove data in category, source file (aplication/controllers/category.php) : </p>
+        <p><strong>a. Controllers </strong><a href="#toc"></a></p>
+        <p><img src="assets/images/controller_remove.png"/><br>
+        </p>
+        <p><strong>a. Models </strong><a href="#toc"></a></p>
+        <img src="assets/images/models_remove.png"/>
+<hr>
+        <h3 id="cssStructure"><strong>F) CSS Files and Structure</strong> - <a href="#toc">top</a></h3>
+        <p><strong>1. Front End </strong></p>
+        <p>The theme comes with several CSS (stylesheet) files grouped in the CSS folder:</p>
+        <ol>
+		  <li>app.css - the main CSS  styling for the app.</li>
+		  <li>ratchet.css -  CSS file containg the layout styling for the app<em></em>.</li>
+          <li>icomoon.css - CSS file for icon app.</li>
+          <li>snap.css - CSS for sidebar menu app.</li>
+          <li>transition.min.css - CSS for transition page app.</li>
+      </ol>
+		<p><strong>2. Back End </strong></p>
+		
+		
+
+		<p>The theme comes with several CSS (stylesheet) files grouped in the CSS folder:</p>
+		<ol>
+          <li>style.css - the main CSS  file containg the layout styling for the app styling for the admin.</li>
+		  <li>chrome-bootstrap.css -  CSS  styling for the admin<em></em>.</li>
+		  <li>icomoon.css - CSS file for icon admin.</li>
+		  <li>login.css -   file containg the layout styling for the login admin.</li>
+		  <li>tables.css - CSS for style datatables.</li>
+      </ol>
+		<p>If you would like to edit or change any color, font, or style of any elements in the template, you must edit the general CSS file (style.css). If you would like to change the general background for admin content for example, you would change the following :</p>
+		<pre class="style1">
+body {<br>  font: 13px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;<br>  color: #404040;<br>  background: #596778;<br>  <strong>background-image: url(../images/retina_wood.png);</strong><br>}</pre>
+		<hr>
+		
+		<h3 id="javascript"><strong>G) JavaScript</strong> - <a href="#toc">top</a></h3>
+		<p><strong>1. Front End </strong></p>
+		<p>This app imports Four Javascript files. All JS files are placed in a separate folder called &quot;js&quot;. The list of files is as follows:</p>
+		
+		<ol>
+			<li>app.js</li>
+			<li>maps.js</li>
+			<li>ratchet.js</li>
+			<li>snap.min.js</li>
+			<li>transition.min.js</li>
+	        <li>jquery.min.js</li>
+		</ol>
+		  
+		<p>All JS functions related to the app content management are placed in maps.js. The maps.js file is responsible for the main functions like connect to database, and etc</p>
+		<ul>
+		  <li type="disc">For example - If you calls synchronous requests  GET and POST <strong></strong> : </li>
+		    <p><br>
+		        <img src="assets/images/request.png"/><br>
+            </p>
+	    </ul>
+		
+		<p><strong>2. Back End </strong></p>
+		<p>This app imports Four Javascript files. All JS files are placed in a separate folder called &quot;js&quot;. The list of files is as follows:</p>
+		<ol>
+          <li>map.js</li>
+		  <li>map.location.js</li>
+		  <li>jquery.min.js</li>
+		  <li>jquery.form.js</li>
+		  <li>jquery.dataTables.columnFilter.js</li>
+		  <li>jquery.dataTables.min.js</li>
+	      <li>jquery.dataTables.reload.js</li>
+	  </ol>
+		<hr>
+		
+		<h3 id="Platform"><strong>H) Platform Guide </strong> - <a href="#toc">top</a></h3>
+		
+		<p>This section tells you all you need to know to set up your development environment to support each platform: where to obtain the SDK, how to set up device emulators, how to connect devices for direct testing, and managing signing key requirements. </p>
+		<ul>
+              <li> <a href="http://docs.phonegap.com/en/edge/guide_phonegap-build_index.md.html">Phonegap build Guide</a></li>
+			  <li> <a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_android_index.md.html#Android%20Platform%20Guide">Android Platform Guide</a> (Windows, Mac, Linux)</li>
+			  <li> <a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_blackberry_index.md.html#BlackBerry%20Platform%20Guide">BlackBerry Platform Guide</a> (Windows, Mac)</li>
+			  <li> <a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_blackberry_index.md.html#BlackBerry%20Platform%20Guide">BlackBerry Platform Guide</a> 10 (Windows, Mac)</li>
+			  <li> <a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_ios_index.md.html#iOS%20Platform%20Guide">iOS Platform Guide</a> (Mac)</li>
+			  <li> <a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_windows-phone-7_index.md.html#Windows%20Phone%207%20Platform%20Guide">Windows Phone 7 Platform Guide</a> (Windows 7 or 8)</li>
+			  <li> <a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_windows-phone-8_index.md.html#Windows%20Phone%208%20Platform%20Guide">Windows Phone 8 Platform Guide</a> (Windows 8)</li>
+			  <li> <a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_windows-8_index.md.html#Windows%208%20Platform%20Guide">Windows 8 Platform Guide</a> (Windows 8)</li>
+			  <li><a href="http://docs.phonegap.com/en/2.9.0/guide_getting-started_tizen_index.md.html#Tizen%20Platform%20Guide">Tizen Platform Guide</a></li>
+	  </ul>
+			<hr>
+		
+		<h3 id="credits"><strong>I) Sources and Credits</strong> - <a href="#toc">top</a></h3>
+		
+		<p>I&#39;ve used the following scripts :
+    <ul>
+		<li>
+		<b>Ratchet</b><br>
+		<a href="http://maker.github.io/ratchet/">http://maker.github.io/ratchet/</a><a href="http://phonegap.com/"></a>		</li>
+		<li><b>jQuery</b><br>
+		<a href="http://jquerymobile.com/">http://jquery.com/</a></li>
+		<li> <b>Snap JS </b><br>
+          <a href="https://github.com/jakiestfu/Snap.js/">https://github.com/jakiestfu/Snap.js/</a><a href="http://phonegap.com/"></a> </li>
+	    <li><b>Datatables</b><br>
+          <a href="http://jquerymobile.com/">http://datatables.net</a> </li>
+	    <li><b>Jquery Form </b><br>
+          <a href="http://malsup.com/jquery/form/">http://malsup.com/jquery/form/</a><a href="http://cubiq.org/"></a></li>
+        <li> <b>Phonegap</b><br>
+          <a href="http://phonegap.com/">http://phonegap.com/</a> </li>
+        <li><b>Icomoon </b><br>
+          <a href="http://icomoon.io/">http://icomoon.io/</a><a href="http://jquerymobile.com/"></a> </li>
+        <li><b>Patterns</b><br>
+          <a href="http://subtlepatterns.com/">http://subtlepatterns.com</a><a href="http://cubiq.org/"></a></li>
+        <li><b>Map Icon</b>s<br>
+          <a href="http://www.webiconset.com/map-icons/">http://www.webiconset.com/map-icons/</a><a href="http://subtlepatterns.com/"></a><a href="http://cubiq.org/"></a></li>
+    </ul>
+		
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing this app. As I said at the beginning, I'd be glad to help you if you have any questions relating to this app. No guarantees, but I'll do my best to assist. If you have a more general question relating to the app on Codecanyon, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Rizal Saleh </strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div>
+	<!-- end div .container -->
+</body>
+</html>

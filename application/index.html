@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title id="ml-title">Maps Finder</title>
+
+		<!-- Sets initial viewport load and disables zooming	-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!-- Include the base Snap.js CSS -->
+		<link rel="stylesheet" href="css/snap.css">
+
+		<!-- Include the compiled Ratchet CSS -->
+		<link rel="stylesheet" href="css/ratchet.css">
+		
+		<!-- Include the app CSS -->
+		<link rel="stylesheet" href="css/app.css">
+
+        <link rel="stylesheet" type="text/css" href="css/transition.min.css" />
+		
+		<link href="css/icomoon.css" rel="stylesheet" />
+        <link href="css/bigstars.css" rel="stylesheet" type="text/css">
+		<link href="css/jquery.bxslider.css" rel="stylesheet" />
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=weather,panoramio"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type='text/javascript' src='js/jquery.easing.1.3.js'></script> 
+		<script type='text/javascript' src="js/jquery.bxslider.min.js"></script>
+        <script type="text/javascript" src="js/transition.min.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/ratchet.js"></script>
+		<script type="text/javascript" src="js/jquery.MultiLanguage.min.js"></script>	
+</head>
+<body  onload="onLoad();">
+
+<!-- SIDEBAR LEFT MENU -->
+<div class="snap-drawers">
+	<div class="snap-drawer snap-drawer-left" id="left-drawer">
+   		<div id="menu">
+        	<div class="scrollable">
+            	<ul>
+               		<li id="li_page_home" class="active">
+						<span aria-hidden="true" class="icon-home-2"></span>
+						<a id="home" transition="side" href="#page_home"><p class="ml-home">Home</p></a>
+					</li>
+               		<li id="li_page_nearby">
+						<span aria-hidden="true" class="icon-checkin"></span>
+						<a id="nearby" transition="side" href="#page_nearby"><p class="ml-nearby">Nearby</p></a>
+					</li>
+					<li id="li_page_location_map">
+						<span aria-hidden="true" class="icon-chris-spittles-geo-location"></span>
+						<a id="location-map" transition="side" href="#page_location_category_map"><p class="ml-location-map">Location Map</p></a>
+					</li>
+					<li id="li_page_location_list">
+						<span aria-hidden="true" class="icon-maps"></span>
+						<a id="location-list" transition="side" href="#page_location_list"><p class="ml-location-list">Locations List</p></a>
+					</li>
+                	<li id="li_page_save_location">
+						<span aria-hidden="true" class="icon-bookmarks"></span>
+						<a id="save-location" transition="side" href="#page_save_location"><p class="ml-save">Save My Location</p></a>
+					</li>
+                	<li>
+						<span aria-hidden="true" class="icon-exit"></span>
+						<a id="exit" transition="side" href="#" onclick="exitFromApp()"><p class="ml-exit">Exit</p></a>
+					</li>
+            	</ul>
+        	</div>
+    	</div>
+	</div>
+</div>
+<!-- END SIDEBAR LEFT MENU -->
+
+<!-- SIDEBAR RIGHT MENU -->
+<div class="snap-drawer snap-drawer-right" id="right-drawer">
+<ul class="list">
+  <li class="list-divider"><span class="ml-nearby-setting">Nearby Setting</span></li>
+  <li>
+  	<div class="fs1" aria-hidden="true" data-icon="&#xf20c;"></div>
+    <span class="ml-distances">Distances Units</span>
+	<div class="toggle-box">
+		<label for="toggle-nearby-distances" class="toggle-label">KM &nbsp;&nbsp;&nbsp;&nbsp; Mil</label>
+		<input type="checkbox" value="1" id="toggle-nearby-distances" class="toggle-control" checked="checked"/>
+	</div>
+  </li>
+  <li class="list-divider"><span class="ml-setting">Maps Layer Setting</span></li>
+  <li>
+  	<div class="fs1" aria-hidden="true" data-icon="&#xf22a;"></div>
+    <span class="ml-traffic">Traffic Layer</span>
+	<div class="toggle-box">
+		<label for="toggle-traffic-layer" class="toggle-label"><b class="ml-on">ON</b> &nbsp;&nbsp; <b class="ml-off">OFF</b></label>
+		<input type="checkbox" value="1" id="toggle-traffic-layer" class="toggle-control" />
+	</div>
+  </li>
+  <li>
+  <div class="fs1" aria-hidden="true" data-icon="&#xe05b;"></div>
+    <span class="ml-weather">Weather Layer</span>
+	<div class="toggle-box">
+		<label for="toggle-weather-layer" class="toggle-label"><b class="ml-on">ON</b> &nbsp;&nbsp; <b class="ml-off">OFF</b></label>
+		<input type="checkbox" value="1" id="toggle-weather-layer" class="toggle-control" />
+	</div>
+  </li>
+  <li>
+  <div class="fs1" aria-hidden="true" data-icon="&#xf23e;"></div>
+    <span class="ml-transit">Transit Layer</span>
+	<div class="toggle-box">
+		<label for="toggle-transit-layer" class="toggle-label"><b class="ml-on">ON</b> &nbsp;&nbsp; <b class="ml-off">OFF</b></label>
+		<input type="checkbox" value="1" id="toggle-transit-layer" class="toggle-control" />
+	</div>
+  </li>
+  <li>
+  <div class="fs1" aria-hidden="true" data-icon="&#x2b;"></div>
+    <span class="ml-panoramio">Panoramio Layer</span>
+	<div class="toggle-box">
+		<label for="toggle-panoramio-layer" class="toggle-label"><b class="ml-on">ON</b> &nbsp;&nbsp; <b class="ml-off">OFF</b></label>
+		<input type="checkbox" value="1" id="toggle-panoramio-layer" class="toggle-control" />
+	</div>
+  </li>
+  <li>
+  <div class="fs1" aria-hidden="true" data-icon="&#x3a;"></div>
+    <span class="ml-bike">Bike Layer</span>
+	<div class="toggle-box">
+		<label for="toggle-bike-layer" class="toggle-label"><b class="ml-on">ON</b> &nbsp;&nbsp; <b class="ml-off">OFF</b></label>
+		<input type="checkbox" value="1" id="toggle-bike-layer" class="toggle-control" />
+	</div>
+  </li>
+</ul>
+<br>
+<center>
+	Choose Language :
+	<select name="lang-form" id="lang-form">
+	</select>
+</center>
+</div>
+<!-- END SIDEBAR RIGHT MENU -->
+
+<!-- MAIN -->
+<div id="content" class="snap-content">
+	<!-- HEADER -->
+	<header class="bar-title">
+		<button class="button icon-list-2 toggle-left"></button>
+		<h1 class="title" ><span id="ml-header">Maps Finder</span></h1>
+		<button class="button icon-uniF00F toggle-right" value="off"></button>
+	</header>
+	<!-- END HEADER -->
+	
+	<!-- CONTENT -->
+	<div class="content">
+		<!-- LOADING -->
+		<div class="loading" align="center">
+			<div class="circle"></div>
+			<div class="circle1"></div>
+		</div>
+		<!-- END LOADING -->
+	
+		<!-- PAGE HOME -->
+		<div id="page_home" data-role="page">
+			<div class="bar-standard bar-header-secondary">
+				<input type="search" id="search-dashboard" placeholder="Search..">
+				<input type="hidden" id="category-id">
+			</div>
+			<div class="wrapper-bar">
+				<div id="menu-dash">
+				</div>
+				<ul id="list-dashboard" class="list">
+				</ul>
+			</div>
+		</div>
+		<!-- END PAGE HOME -->
+		
+		
+		<!-- PAGE LOCATION LIST -->
+		<div id="page_location_list" data-role="page" data-title="Page Location List">
+			<div class="wrapper">
+					<ul id="list-category" class="list">
+					</ul>
+			</div>
+		</div>
+		<!-- END PAGE LOCATION LIST -->
+
+		<!-- PAGE LOCATION CATEGORY MAP -->
+		<div id="page_location_category_map" data-role="page" data-title="Page Location Category Map">
+			<div class="wrapper">
+					<ul id="location_category_map" class="list">
+					</ul>
+			</div>
+		</div>
+		<!-- END PAGE LOCATION CATEGORY MAP -->
+				
+		<!-- PAGE LOCATION LIST DETAIL -->
+		<div id="page_detail" data-role="page" data-title="Page Detail">
+			<div class="bar-standard bar-header-secondary">
+				<input type="search" id="search-list" placeholder="Search..">
+				<input type="hidden" id="category-id">
+			</div>
+			<div class="wrapper-bar">
+				<ul id="list-detail" class="list">
+				</ul>
+			</div>
+		</div>
+		<!-- END PAGE LOCATION LIST DETAIL -->
+		
+		<!-- PAGE NEARBY -->
+		<div id="page_nearby" data-role="page" data-title="Page Nearby">
+			<div class="wrapper" id="wrapper-nearby">
+				<ul id="list-nearby" class="list">
+				</ul>
+			</div>
+		</div>
+		<!-- END PAGE NEARBY -->
+
+		<!-- PAGE SAVE LOCATION -->
+		<div id="page_save_location" data-role="page" data-title="Page Save Location">
+ 			<div class="bar-standard bar-header-secondary">
+  				<a class="button-block" href="#page_add_location"><span class="ml-btn-check-in">Check In</span></a>
+			</div>
+			<div class="wrapper-bar">
+				<ul id="list-save-location" class="list">
+				</ul>
+			</div>
+		</div>
+		<!-- END PAGE SAVE LOCATION -->
+		
+		<!-- PAGE DETAIL SAVE LOCATION -->
+		<div id="page_detail_save_location" data-role="page" data-title="Page Detail Save Location">
+			<div class="wrapper">
+				<div class="slider" data-snap-ignore="true">
+      				<ul>
+      				</ul>
+    			</div>
+			
+  				<div class="input-group">
+    				<div class="input-row">
+      					<label>Date</label>
+      					<div id="date-save-location"></div>
+    				</div>
+    				<div class="input-row">
+     		 			<label>Location</label>
+     					<div id="address-save-location"></div>
+    				</div>
+    				<div class="input-row">
+      					<label>Title</label>
+   			 			<div id="title-save-location"></div>
+    				</div>
+    				<div class="input-row">
+      					<label>Description</label>
+     					<div id="desc-save-location"></div>
+    				</div>
+  				</div>
+			<div class="content-padded">
+				<div id="button-save-location"></div>
+			</div>
+			</div>
+		</div>
+		<!-- END PAGE DETAIL SAVE LOCATION -->
+		
+		<!-- PAGE ADD COMMENT -->
+		<div id="page_add_comment" data-role="page" data-title="Page Add Comment">
+			<div class="content-padded">
+				<form>
+  					<input type="text" name="form-comment-name" id="form-comment-name" placeholder="Name">
+  					<textarea rows="12" name="form-comment" id="form-comment" placeholder="Description"></textarea>
+  					<a onClick='sendComment()' id="form-submit-comment" class="button-positive button-block" href="#page_show_location">Submit</a>
+				</form>
+			</div>
+		</div>
+		<!-- END PAGE ADD COMMENT -->
+		
+		<!-- PAGE ADD LOCATION -->
+		<div id="page_add_location" data-role="page" data-title="Page Save Location">
+			<div class="content-padded">
+				<form>
+  					<input type="text" id="form-title" placeholder="Title">
+  					<textarea rows="5" id="form-desc" placeholder="Description"></textarea>
+  					<a id="form-add" class="button-positive button-block" href="#page_save_location">Add Entry</a>
+					<span id="show-location-address" class="count">No Detect Location</span>
+				</form>
+			</div>
+		</div>
+		<!-- END PAGE ADD LOCATION -->
+		
+		<!-- PAGE LOCATION MAP-->			
+		<div id="page_location_map" data-role="page" data-title="Page Location Map">
+			<div id="map_canvas" style="width: 100%;" data-snap-ignore="true"></div>
+		</div>
+		<!-- END PAGE LOCATION MAP-->	
+		
+		<!-- PAGE DETAIL LOCATION -->
+		<div id="page_show_location" data-role="page">
+			<nav class="bar-standard">
+ 	 			<ul class="segmented-controller">
+    				<li><a id="btn-show-map" href="#"><span class="ml-btn-map">Map</span></a></li>
+    				<li><a id="btn-show-street" href="#"><span class="ml-btn-street">Street</span></a></li>
+    				<li><a id="btn-show-directions" href="#"><span class="ml-btn-direction">Directions</span></a></li>
+  				</ul>
+			</nav>
+			<div class="wrapper-bar">
+			<ul class="bxslider">
+			</ul>
+			<div class="input-group">
+    				<div class="input-row">
+      					<label><span class="ml-detail-category">Category</span></label>
+      					<div id="title-show-category"></div>
+    				</div>
+    				<div class="input-row">
+     		 			<label><span class="ml-detail-name">Name</span></label>
+     					<div id="title-show-name"></div>
+    				</div>
+    				<div class="input-row">
+      					<label><span class="ml-detail-phone">Phone</span></label>
+   			 			<div id="title-show-phone"></div>
+    				</div>
+    				<div class="input-row">
+      					<label><span class="ml-detail-url">Url</span></label>
+   			 			<div id="title-show-url"></div>
+    				</div>
+    				<div class="input-row">
+      					<label><span class="ml-detail-address">Address</span></label>
+     					<div id="title-show-address"></div>
+    				</div>
+    				<div class="input-row">
+      					<label><span class="ml-detail-desc">Description</span></label>
+     					<div id="title-show-desc"></div>
+    				</div>
+    				<div class="input-row">
+      					<label><span class="ml-detail-open">Open Time</span></label>
+     					<div id="title-show-open"></div>
+    				</div>
+    				<div class="input-row">
+      					<label><span class="ml-detail-close">Close Time</span></label>
+     					<div id="title-show-close"></div>
+    				</div>
+  			</div>
+			<div class="content-padded">
+				<div style="margin-left: 28%;"><input type="range" min="0" max="5" value="0" step="1" id="backing2">
+				<div id="rating-now"></div>
+			</div>
+			
+			<div class="content-padded">
+				<a id="add_comment" class="button-positive button-block" href="#page_add_comment"><span class="ml-add-comment">Add Comment</span></a>
+				<br><a id="download" class="button-negative  button-block" href="" onClick="catalogueDownload()"><span class="ml-catalogue">Catalogue</span></a>
+				<span id="show-catalogue"></span>
+			</div>
+			<div class="content-padded">
+				<div id="comment"></div>
+			</div>
+		</div>
+		</div>
+		<!-- END PAGE DETAIL LOCATION -->
+		
+		<!-- PAGE LOCATION ROUTE -->			
+		<div id="page_location_route" data-role="page" data-title="Page Location Route">
+			<div class="content-padded" data-snap-ignore="true">
+				<div class="wrapper-route">
+					<div id="directions-route"></div>
+				</div>
+			</div>
+		</div>
+		<!-- END PAGE LOCATION ROUTE-->	
+
+	</div>
+	<!-- END CONTENT -->	
+</div>	
+<!-- END MAIN -->
+
+<script type="text/javascript" src="js/jquery.rateit.js" ></script>
+<script type="text/javascript" src="js/maps.js"></script>
+<script type="text/javascript" src="js/snap.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+    </body>
+</html>
